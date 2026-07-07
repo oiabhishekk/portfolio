@@ -1,0 +1,55 @@
+---
+
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import About from '../components/sections/About.astro';
+import Education from '../components/sections/Education.astro';
+import TechStack from '../components/sections/TechStack.astro';
+import Projects from '../components/sections/Projects.astro';
+import Achievements from '../components/sections/Achievements.astro';
+import Contact from '../components/sections/Contact.astro';
+import FadeIn from '../components/FadeIn';
+import SplashCursor from '../components/SplashCursor.jsx';
+---
+
+<Layout title="Abhishek Sharma | Full-Stack Developer">
+  <Sidebar />
+  
+  <main class="flex-grow overflow-y-auto overflow-x-hidden relative scroll-smooth">
+    <SplashCursor 
+      client:only="react"
+      SIM_RESOLUTION={128}
+      DYE_RESOLUTION={1440}
+      DENSITY_DISSIPATION={3.5}
+      VELOCITY_DISSIPATION={2}
+      PRESSURE={0.1}
+      CURL={3}
+      SPLAT_RADIUS={0.2}
+      SPLAT_FORCE={6000}
+      COLOR_UPDATE_SPEED={10}
+      BACK_COLOR={{ r: 0.05, g: 0.05, b: 0.08 }}
+      TRANSPARENT={true}
+    />
+    
+    <div class="max-w-7xl mx-auto pb-20 relative z-10">
+      <FadeIn client:visible>
+        <About />
+      </FadeIn>
+      <FadeIn client:visible delay={0.1}>
+        <Education />
+      </FadeIn>
+      <FadeIn client:visible delay={0.1}>
+        <TechStack />
+      </FadeIn>
+      <FadeIn client:visible delay={0.1}>
+        <Projects />
+      </FadeIn>
+      <FadeIn client:visible delay={0.1}>
+        <Achievements />
+      </FadeIn>
+      <FadeIn client:visible delay={0.1}>
+        <Contact />
+      </FadeIn>
+    </div>
+  </main>
+</Layout>

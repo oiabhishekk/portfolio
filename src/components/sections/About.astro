@@ -1,0 +1,119 @@
+---
+import TextType from '../TextType.jsx';
+import { personalInfo } from '../../config';
+---
+<section id="about" class="min-h-screen pt-20 pb-10 px-8 flex flex-col justify-center max-w-5xl mx-auto relative">
+  <!-- Top Left Corner Dashed Border -->
+  <div class="absolute top-10 left-4 w-16 h-16 border-t-2 border-l-2 border-dashed border-primary"></div>
+  
+  <!-- Full screen button -->
+  <button id="fullscreen-btn" class="absolute top-10 right-4 text-text-muted hover:text-primary transition-colors cursor-pointer bg-bg-dark border border-border p-2 rounded-md z-50">
+    <i class="fa-solid fa-expand text-xs"></i>
+  </button>
+
+  <div class="mb-12 flex flex-col items-center">
+    <div class="text-primary flex items-center gap-2 mb-2 font-mono text-sm min-h-[1.25rem]">
+      <i class="fa-solid fa-cubes"></i>
+      <TextType 
+        client:visible
+        text="Hi there..."
+        typingSpeed={75}
+        showCursor={true}
+        cursorCharacter="_"
+        loop={false}
+      />
+    </div>
+    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+      I'm <span class="text-primary">{personalInfo.firstName} {personalInfo.lastName}</span>
+    </h2>
+
+    <!-- Contact Row -->
+    <div class="flex flex-wrap justify-center items-center gap-4 text-sm text-text-muted font-mono">
+      <div class="flex items-center gap-1.5 hover:text-primary cursor-pointer transition-colors"><i class="fa-solid fa-location-dot"></i> {personalInfo.location}</div>
+      <span class="text-border text-[10px]">■</span>
+      <a href={`mailto:${personalInfo.email}`} class="flex items-center gap-1.5 hover:text-primary transition-colors"><i class="fa-solid fa-envelope"></i> {personalInfo.email}</a>
+      <span class="text-border text-[10px]">■</span>
+      <a href={personalInfo.linkedinUrl} target="_blank" class="flex items-center gap-1.5 hover:text-primary transition-colors"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      <span class="text-border text-[10px]">■</span>
+      <a href={personalInfo.githubUrl} target="_blank" class="flex items-center gap-1.5 hover:text-primary transition-colors"><i class="fa-brands fa-github"></i> Github</a>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+      <span class="text-primary text-3xl leading-none -mt-1">|</span> 
+      <span>A little bit <span class="text-primary">about me...</span></span>
+    </h3>
+    <div class="flex flex-col md:flex-row gap-10 items-center">
+      <div class="md:w-2/5 flex justify-center items-center relative">
+        <!-- Decorative shape mimicking screenshot -->
+        <div class="w-64 h-64 bg-primary/20 absolute rounded-[40px] rotate-12 blur-sm"></div>
+        <div class="w-64 h-64 bg-bg-card rounded-[40px] overflow-hidden border border-primary relative z-10 p-4 shadow-xl flex justify-center items-center">
+           <img src={personalInfo.avatarUrl} alt={`${personalInfo.firstName} ${personalInfo.lastName}`} class="w-full h-full object-cover rounded-[28px]" />
+        </div>
+      </div>
+      <div class="md:w-3/5 text-text-muted space-y-6 leading-relaxed text-sm">
+        {personalInfo.aboutMe.map(paragraph => (
+          <p set:html={paragraph}></p>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-12">
+    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+      <span class="text-primary text-3xl leading-none -mt-1">|</span> 
+      <span>Personal <span class="text-primary">interests</span></span>
+    </h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {personalInfo.interests.map(interest => (
+        <div class="bg-bg-dark/50 border border-border rounded-xl p-4 flex items-center gap-4 hover:border-border/80 transition-colors">
+          <div class="w-16 h-16 rounded-lg bg-bg-dark border border-border flex justify-center items-center shrink-0">
+            <i class={`${interest.icon} text-2xl text-text-main`}></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-text-main text-sm mb-1" set:html={interest.title}></h4>
+            <p class="text-xs text-text-muted leading-relaxed">{interest.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="mt-12">
+    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+      <span class="text-primary text-3xl leading-none -mt-1">|</span> 
+      <span>Languages <span class="text-primary">I speak</span></span>
+    </h3>
+    
+    <div class="flex flex-col gap-6">
+      {personalInfo.languages.map(lang => (
+        <div class="flex items-center gap-4">
+          <div class="text-4xl leading-none">{lang.flag}</div>
+          <div>
+            <div class="font-bold text-text-main text-sm mb-1">{lang.name} <span class="text-text-muted font-normal">- {lang.level}</span></div>
+            <div class="text-text-muted text-xs">{lang.description}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const fsBtn = document.getElementById('fullscreen-btn');
+  if (fsBtn) {
+    fsBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+        fsBtn.innerHTML = '<i class="fa-solid fa-compress text-xs"></i>';
+      } else {
+        document.exitFullscreen();
+        fsBtn.innerHTML = '<i class="fa-solid fa-expand text-xs"></i>';
+      }
+    });
+  }
+</script>

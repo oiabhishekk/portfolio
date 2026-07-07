@@ -1,0 +1,194 @@
+---
+import TextType from './TextType.jsx';
+import { personalInfo } from '../config';
+---
+<nav id="sidebar" class="w-72 h-full bg-bg-card border-r border-border flex flex-col py-6 overflow-y-auto shrink-0 z-50 hidden md:flex relative transition-all duration-300">
+  
+  <!-- Sidebar Toggle Button -->
+  <button id="sidebar-toggle" class="absolute -right-3 top-12 w-6 h-6 bg-bg-dark border border-border rounded-full flex items-center justify-center text-text-muted hover:text-primary z-50 shadow-lg cursor-pointer">
+    <i class="fa-solid fa-chevron-left text-[10px]"></i>
+  </button>
+
+  <!-- Profile Card -->
+  <div class="flex flex-col items-center mb-8 relative px-6">
+    <div class="relative mb-4">
+      <!-- Glow effect -->
+      <div class="absolute inset-0 bg-primary/20 blur-md rounded-2xl"></div>
+      <div id="avatar-container" class="w-24 h-24 rounded-2xl overflow-hidden border border-primary/50 relative z-10 shadow-[0_0_15px_rgba(117,215,234,0.3)] transition-all duration-300">
+        <img src={personalInfo.avatarUrl} alt={`${personalInfo.firstName} ${personalInfo.lastName}`} class="w-full h-full object-cover" />
+      </div>
+      <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-primary rounded-full border-2 border-bg-card z-20 shadow-[0_0_8px_rgba(117,215,234,0.8)]"></div>
+    </div>
+    
+    <h1 class="text-xl font-bold mb-1 text-center flex items-center gap-2 sidebar-text">
+      {personalInfo.firstName} <span class="text-primary">{personalInfo.lastName}</span> <i class="fa-solid fa-volume-high text-sm text-text-muted cursor-pointer hover:text-primary transition-colors"></i>
+    </h1>
+    <div class="text-sm text-text-muted text-center font-mono min-h-[1.25rem] sidebar-text">
+      <TextType 
+        client:load
+        text={personalInfo.titles}
+        typingSpeed={75}
+        pauseDuration={2000}
+        showCursor={true}
+        cursorCharacter="_"
+      />
+    </div>
+  </div>
+
+  <div id="nav-links-container" class="flex flex-col flex-grow w-full">
+    <a href="#about" class="nav-link flex items-center gap-4 px-8 py-4 text-text-muted hover:text-primary hover:bg-bg-dark transition-colors group relative">
+      <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 bg-blue-600 hidden"></div>
+      <i class="fa-solid fa-address-card w-5 text-center text-lg group-hover:text-primary transition-colors"></i>
+      <span class="font-medium sidebar-text whitespace-nowrap transition-colors">About me</span>
+    </a>
+    <a href="#education" class="nav-link flex items-center gap-4 px-8 py-4 text-text-muted hover:text-primary hover:bg-bg-dark transition-colors group relative">
+      <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 bg-blue-600 hidden"></div>
+      <i class="fa-solid fa-graduation-cap w-5 text-center text-lg group-hover:text-primary transition-colors"></i>
+      <span class="font-medium sidebar-text whitespace-nowrap transition-colors">Education</span>
+    </a>
+    <a href="#skills" class="nav-link flex items-center gap-4 px-8 py-4 text-text-muted hover:text-primary hover:bg-bg-dark transition-colors group relative">
+      <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 bg-blue-600 hidden"></div>
+      <i class="fa-solid fa-tools w-5 text-center text-lg group-hover:text-primary transition-colors"></i>
+      <span class="font-medium sidebar-text whitespace-nowrap transition-colors">Tech Stack</span>
+    </a>
+    <a href="#projects" class="nav-link flex items-center gap-4 px-8 py-4 text-text-muted hover:text-primary hover:bg-bg-dark transition-colors group relative">
+      <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 bg-blue-600 hidden"></div>
+      <i class="fa-solid fa-folder-open w-5 text-center text-lg group-hover:text-primary transition-colors"></i>
+      <span class="font-medium sidebar-text whitespace-nowrap transition-colors">Projects</span>
+    </a>
+    <a href="#achievements" class="nav-link flex items-center gap-4 px-8 py-4 text-text-muted hover:text-primary hover:bg-bg-dark transition-colors group relative">
+      <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 bg-blue-600 hidden"></div>
+      <i class="fa-solid fa-trophy w-5 text-center text-lg group-hover:text-primary transition-colors"></i>
+      <span class="font-medium sidebar-text whitespace-nowrap transition-colors">Achievements</span>
+    </a>
+    <a href="#contact" class="nav-link flex items-center gap-4 px-8 py-4 text-text-muted hover:text-primary hover:bg-bg-dark transition-colors group relative">
+      <div class="active-indicator absolute left-0 top-0 bottom-0 w-1 bg-blue-600 hidden"></div>
+      <i class="fa-solid fa-pen-to-square w-5 text-center text-lg group-hover:text-primary transition-colors"></i>
+      <span class="font-medium sidebar-text whitespace-nowrap transition-colors">Contact</span>
+    </a>
+  </div>
+
+  <!-- Footer Tools -->
+  <div id="footer-tools" class="flex justify-between items-center mt-8 pt-4 border-t border-border text-text-muted px-6 transition-opacity duration-300">
+    <button class="hover:text-primary transition-colors flex items-center gap-1" title="Language">
+      <span class="text-lg leading-none">🇺🇸</span> <i class="fa-solid fa-caret-down text-[10px]"></i>
+    </button>
+    <button id="theme-toggle" class="hover:text-primary transition-colors" title="Toggle Theme">
+      <i id="theme-icon" class="fa-solid fa-moon"></i>
+    </button>
+    <button class="hover:text-primary transition-colors" title="Theme Settings">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+    </button>
+    <button class="hover:text-primary transition-colors" title="Download Resume">
+      <i class="fa-solid fa-file-arrow-down"></i>
+    </button>
+  </div>
+</nav>
+
+<script>
+  const toggleBtn = document.getElementById('sidebar-toggle');
+  const sidebar = document.getElementById('sidebar');
+  const avatarContainer = document.getElementById('avatar-container');
+  const footerTools = document.getElementById('footer-tools');
+  
+  if (toggleBtn && sidebar) {
+    toggleBtn.addEventListener('click', () => {
+      // Toggle width
+      sidebar.classList.toggle('w-72');
+      sidebar.classList.toggle('w-[5rem]'); 
+      
+      // Toggle icon direction
+      const icon = toggleBtn.querySelector('i');
+      if (icon) {
+        icon.classList.toggle('fa-chevron-left');
+        icon.classList.toggle('fa-chevron-right');
+      }
+      
+      // Shrink avatar
+      if (avatarContainer) {
+        avatarContainer.classList.toggle('w-24');
+        avatarContainer.classList.toggle('h-24');
+        avatarContainer.classList.toggle('w-10');
+        avatarContainer.classList.toggle('h-10');
+      }
+      
+      // Hide texts
+      const texts = sidebar.querySelectorAll('.sidebar-text');
+      texts.forEach(el => {
+        el.classList.toggle('hidden');
+      });
+
+      // Hide footer
+      if (footerTools) {
+        footerTools.classList.toggle('opacity-0');
+        footerTools.classList.toggle('pointer-events-none');
+      }
+    });
+  }
+
+  // Theme Toggle Logic
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+
+  if (themeToggle && themeIcon) {
+    // Sync initial icon state
+    if (document.documentElement.classList.contains('light')) {
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light');
+      const isLight = document.documentElement.classList.contains('light');
+      
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      
+      if (isLight) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    });
+  }
+
+  // ScrollSpy for Sidebar Navigation
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = Array.from(navLinks).map(link => {
+    const id = link.getAttribute('href')?.substring(1);
+    return id ? document.getElementById(id) : null;
+  }).filter(Boolean);
+
+  if (sections.length > 0 && navLinks.length > 0) {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const currentId = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            const indicator = link.querySelector('.active-indicator');
+            if (link.getAttribute('href') === `#${currentId}`) {
+              link.classList.add('btn-active');
+              link.classList.remove('text-text-muted');
+              if (indicator) indicator.classList.remove('hidden');
+            } else {
+              link.classList.remove('btn-active');
+              link.classList.add('text-text-muted');
+              if (indicator) indicator.classList.add('hidden');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      if (section) observer.observe(section);
+    });
+  }
+</script>

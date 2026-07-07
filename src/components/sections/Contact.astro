@@ -1,0 +1,121 @@
+---
+import { personalInfo } from '../../config';
+---
+<section id="contact" class="min-h-screen pt-20 pb-10 px-8 flex flex-col justify-center max-w-5xl mx-auto relative">
+  
+  <div class="mb-12 text-center">
+    <div class="text-text-muted flex items-center justify-center gap-2 mb-2 font-mono text-sm">
+      <i class="fa-solid fa-cubes"></i>
+      <span>Don't hesitate to</span>
+    </div>
+    <h2 class="text-4xl md:text-5xl font-bold">
+      <span class="text-primary">Contact</span> Me
+    </h2>
+  </div>
+
+  <div class="mb-8">
+    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+      <span class="text-primary text-3xl leading-none -mt-1">|</span> 
+      <span>Send me a <span class="text-primary">message</span></span>
+    </h3>
+
+    <form id="contact-form" action="https://formsubmit.co/abhiiiworks@gmail.com" method="POST" class="flex flex-col gap-6">
+      <!-- Hidden fields for formsubmit configuration -->
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject" value="New message from your portfolio!">
+      <input type="hidden" name="_captcha" value="false">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Left Column -->
+        <div class="flex flex-col gap-6">
+          <div class="flex items-center bg-bg-dark border border-border rounded-lg overflow-hidden focus-within:border-primary transition-colors">
+            <div class="px-4 text-text-muted">
+              <i class="fa-solid fa-user-pen"></i>
+            </div>
+            <input type="text" name="name" placeholder="Name *" class="w-full bg-transparent py-3 pr-4 text-text-main placeholder-text-muted focus:outline-none" required />
+          </div>
+
+          <div class="flex items-center bg-bg-dark border border-border rounded-lg overflow-hidden focus-within:border-primary transition-colors">
+            <div class="px-4 text-text-muted">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <input type="email" name="email" placeholder="E-mail *" class="w-full bg-transparent py-3 pr-4 text-text-main placeholder-text-muted focus:outline-none" required />
+          </div>
+
+          <div class="flex items-center bg-bg-dark border border-border rounded-lg overflow-hidden focus-within:border-primary transition-colors">
+            <div class="px-4 text-text-muted">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <input type="text" name="subject" placeholder="Subject *" class="w-full bg-transparent py-3 pr-4 text-text-main placeholder-text-muted focus:outline-none" required />
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="flex flex-col h-full">
+          <div class="flex bg-bg-dark border border-border rounded-lg overflow-hidden focus-within:border-primary transition-colors h-full min-h-[150px]">
+            <textarea name="message" placeholder="Message *" class="w-full h-full bg-transparent p-4 text-text-main placeholder-text-muted focus:outline-none resize-none" required></textarea>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="flex justify-center mt-4">
+        <button id="submit-btn" type="submit" class="bg-[#75d7ea] text-bg-dark font-bold px-8 py-3 rounded-full hover:bg-opacity-90 transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(117,215,234,0.4)] hover:shadow-[0_0_25px_rgba(117,215,234,0.6)]">
+          <i class="fa-solid fa-envelope"></i>
+          <span>SEND MESSAGE</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="mt-12">
+    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+      <span class="text-primary text-3xl leading-none -mt-1">|</span> 
+      <span>Or if you <span class="text-primary">prefer...</span></span>
+    </h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} class="bg-bg-dark/50 border border-border rounded-xl p-4 flex items-center gap-4 hover:border-border/80 transition-colors group">
+        <div class="w-16 h-16 rounded-lg bg-bg-dark border border-border flex justify-center items-center shrink-0 group-hover:text-primary transition-colors">
+          <i class="fa-solid fa-phone text-2xl"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-text-main text-sm mb-1">Phone</h4>
+          <p class="text-xs text-text-muted leading-relaxed">{personalInfo.phone}</p>
+        </div>
+      </a>
+
+      <a href={`mailto:${personalInfo.email}`} class="bg-bg-dark/50 border border-border rounded-xl p-4 flex items-center gap-4 hover:border-border/80 transition-colors group">
+        <div class="w-16 h-16 rounded-lg bg-bg-dark border border-border flex justify-center items-center shrink-0 group-hover:text-primary transition-colors">
+          <i class="fa-solid fa-envelope text-2xl"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-text-main text-sm mb-1">E-mail</h4>
+          <p class="text-xs text-text-muted leading-relaxed">{personalInfo.email}</p>
+        </div>
+      </a>
+
+      <a href={`https://wa.me/${personalInfo.whatsapp}`} target="_blank" class="bg-bg-dark/50 border border-border rounded-xl p-4 flex items-center gap-4 hover:border-border/80 transition-colors group">
+        <div class="w-16 h-16 rounded-lg bg-bg-dark border border-border flex justify-center items-center shrink-0 group-hover:text-primary transition-colors">
+          <i class="fa-brands fa-whatsapp text-2xl"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-text-main text-sm mb-1">WhatsApp</h4>
+          <p class="text-xs text-text-muted leading-relaxed">@{personalInfo.firstName}</p>
+        </div>
+      </a>
+
+      <a href={personalInfo.linkedinUrl} target="_blank" class="bg-bg-dark/50 border border-border rounded-xl p-4 flex items-center gap-4 hover:border-border/80 transition-colors group">
+        <div class="w-16 h-16 rounded-lg bg-bg-dark border border-border flex justify-center items-center shrink-0 group-hover:text-primary transition-colors">
+          <i class="fa-brands fa-linkedin text-2xl"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-text-main text-sm mb-1">LinkedIn</h4>
+          <p class="text-xs text-text-muted leading-relaxed">{personalInfo.linkedinUsername}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</section>

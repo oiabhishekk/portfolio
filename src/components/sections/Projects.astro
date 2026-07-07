@@ -1,0 +1,44 @@
+---
+import { projects } from '../../config';
+---
+<section id="projects" class="min-h-screen py-20 px-8 flex flex-col justify-center max-w-6xl mx-auto">
+  <div class="section-title">
+    <div class="section-subtitle">
+      <i class="fa-solid fa-laptop-code"></i>
+      Take a look at
+    </div>
+    <div class="text-4xl font-bold flex gap-2">
+      My <span class="text-primary">Projects</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    {projects.map((project) => (
+      <div class="card flex flex-col hover:border-primary transition-colors duration-300 relative group overflow-hidden">
+        
+        <div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+        <div class="absolute top-4 right-4 text-primary text-2xl opacity-50 group-hover:opacity-100 transition-opacity">
+           <i class="fa-solid fa-rocket"></i>
+        </div>
+
+        <h4 class="text-xl font-bold text-text-main mb-3 pr-12 leading-tight">{project.title}</h4>
+        
+        <div class="flex flex-wrap gap-2 mb-4">
+          {project.tags.map(tag => (
+            <span class="px-2 py-1 bg-bg-dark border border-border text-xs font-mono text-text-muted rounded-md">{tag}</span>
+          ))}
+        </div>
+        
+        <p class="text-text-muted text-sm flex-grow mb-6 leading-relaxed">
+          {project.description}
+        </p>
+        
+        <div class="mt-auto pt-4 border-t border-border flex justify-between items-center">
+           <a href={project.link} target="_blank" class="flex items-center gap-2 text-primary text-sm font-bold hover:underline">
+             View Live <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+           </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

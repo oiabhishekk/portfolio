@@ -1,0 +1,30 @@
+---
+import { achievements } from '../../config';
+---
+<section id="achievements" class="min-h-screen py-20 px-8 flex flex-col justify-center max-w-5xl mx-auto">
+  <div class="section-title">
+    <div class="section-subtitle">
+      <i class="fa-solid fa-star"></i>
+      Milestones
+    </div>
+    <div class="text-4xl font-bold flex gap-2">
+      My <span class="text-primary">Achievements</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+    {achievements.map((item) => (
+      <div class="card flex gap-4 hover:border-primary transition-colors duration-300">
+        <div class="w-12 h-12 rounded-lg bg-bg-dark border border-border text-primary flex items-center justify-center shrink-0 text-xl shadow-[0_0_10px_rgba(117,215,234,0.1)]">
+          <i class={item.icon}></i>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold text-text-main mb-2">{item.title}</h4>
+          <p class="text-text-muted text-sm leading-relaxed">
+            {item.description}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
