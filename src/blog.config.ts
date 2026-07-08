@@ -585,7 +585,7 @@ export const blogs: BlogPost[] = [
 
       {
         type: "paragraph",
-        text: "The internet doesn't need another tutorial. It needs more people building interesting things. Learning isn't about how many videos you've watched or certificates you've collected—it's about what you've created. Every finished project teaches lessons that no tutorial can. So close the tenth browser tab, open your editor, and start building. That's where real growth happens."
+        text: "The internet doesn't need another tutorial. It needs more people to building interesting things. Learning isn't about how many videos you've watched or certificates you've collected—it's about what you've created. Every finished project teaches lessons that no tutorial can. So close the tenth browser tab, open your editor, and start building. That's where real growth happens."
       }
     ]
   }
