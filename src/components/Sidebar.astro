@@ -2,7 +2,7 @@
 import TextType from './TextType.jsx';
 import { personalInfo } from '../config';
 ---
-<nav id="sidebar" class="w-72 h-full bg-bg-card border-r border-border flex flex-col py-6 overflow-y-auto shrink-0 z-50 hidden md:flex relative transition-all duration-300">
+<nav id="sidebar" class="w-72 h-full bg-bg-card border-r border-border flex flex-col py-6 overflow-y-auto overflow-x-hidden shrink-0 z-50 hidden md:flex relative transition-all duration-300">
   
   <!-- Sidebar Toggle Button -->
   <button id="sidebar-toggle" class="absolute -right-3 top-12 w-6 h-6 bg-bg-dark border border-border rounded-full flex items-center justify-center text-text-muted hover:text-primary z-50 shadow-lg cursor-pointer">
@@ -21,7 +21,7 @@ import { personalInfo } from '../config';
     </div>
     
     <h1 class="text-xl font-bold mb-1 text-center flex items-center gap-2 sidebar-text">
-      {personalInfo.firstName} <span class="text-primary">{personalInfo.lastName}</span> <i class="fa-solid fa-volume-high text-sm text-text-muted cursor-pointer hover:text-primary transition-colors"></i>
+      {personalInfo.firstName} <span class="text-primary">{personalInfo.lastName}</span>
     </h1>
     <div class="text-sm text-text-muted text-center font-mono min-h-[1.25rem] sidebar-text">
       <TextType 

@@ -43,17 +43,17 @@
 }
 
 .light {
-  --color-primary: #2b7a9c; 
-  --color-bg-dark: #a3c2de; 
-  --color-bg-card: #e8f2fa; 
-  --color-border: #c2d6e6; 
-  --color-text-main: #1a365d; 
-  --color-text-muted: #475569; 
+  --color-primary: #2b7a9c;
+  --color-bg-dark: #a3c2de;
+  --color-bg-card: #e8f2fa;
+  --color-border: #c2d6e6;
+  --color-text-main: #1a365d;
+  --color-text-muted: #475569;
 }
 
 /* Base body background for light mode bubbles */
 html.light body {
-  background-image: 
+  background-image:
     radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25.1%),
     radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 20%, transparent 20.1%);
   background-attachment: fixed;
@@ -70,21 +70,24 @@ html:not(.light) .auto-invert {
     color: var(--color-text-main);
     font-family: var(--font-sans);
   }
-  
+
   /* Custom scrollbar to match reference */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
+
   ::-webkit-scrollbar-track {
-    background: var(--color-bg-dark); 
+    background: var(--color-bg-dark);
   }
+
   ::-webkit-scrollbar-thumb {
-    background: #333; 
+    background: #333;
     border-radius: 4px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
   }
 }
 
@@ -92,19 +95,21 @@ html:not(.light) .auto-invert {
   .section-title {
     @apply text-3xl font-bold mb-8 flex flex-col items-center;
   }
+
   .section-subtitle {
     @apply text-sm uppercase tracking-widest text-text-muted mb-2 flex items-center gap-2;
   }
+
   .card {
     @apply bg-bg-card rounded-xl p-6 border border-border;
   }
-  
+
   .btn-active {
     background-color: var(--color-primary) !important;
     color: #111111 !important;
     font-weight: bold !important;
   }
-  
+
   html.light .btn-active {
     color: #ffffff !important;
   }
