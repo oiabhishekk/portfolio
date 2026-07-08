@@ -86,6 +86,15 @@ export const projects = [
 ];
 
 export const education = [
+
+  {
+    degree: "Masters in Computer Applications (MCA)",
+    period: "2026 - 2028",
+    institution: "IIT Patna & IIIT Ranchi (Hybrid Mode)",
+    location: "Patna, Bihar, India",
+    percentage: "Ongoing",
+    description: "Pursuing online MCA with primary focus on Software Engineering and AI."
+  },
   {
     degree: "Bachelor of Computer Applications (BCA)",
     period: "2022 - 2025",
