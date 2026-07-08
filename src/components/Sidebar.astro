@@ -2,10 +2,37 @@
 import TextType from './TextType.jsx';
 import { personalInfo } from '../config';
 ---
-<nav id="sidebar" class="w-72 h-full bg-bg-card border-r border-border flex flex-col py-6 overflow-y-auto overflow-x-hidden shrink-0 z-50 hidden md:flex relative transition-all duration-300">
+<!-- Mobile Header -->
+<header class="md:hidden flex items-center justify-between p-4 border-b border-border bg-bg-card shrink-0 z-40 relative shadow-sm">
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-full overflow-hidden border border-primary/50">
+      <img src={personalInfo.avatarUrl} alt="Avatar" class="w-full h-full object-cover" />
+    </div>
+    <h1 class="font-bold text-lg leading-tight">{personalInfo.firstName} <span class="text-primary">{personalInfo.lastName}</span></h1>
+  </div>
   
+  <div class="flex items-center gap-4">
+    <button id="mobile-theme-toggle" class="w-8 h-8 flex items-center justify-center rounded-full bg-bg-dark border border-border text-text-muted hover:text-primary transition-colors" title="Toggle Theme">
+      <i id="mobile-theme-icon" class="fa-solid fa-moon"></i>
+    </button>
+    <button id="mobile-menu-toggle" class="w-8 h-8 flex items-center justify-center rounded-full bg-bg-dark border border-border text-text-muted hover:text-primary transition-colors">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Overlay -->
+<div id="mobile-overlay" class="md:hidden fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<nav id="sidebar" class="fixed inset-y-0 left-0 -translate-x-full md:translate-x-0 md:relative w-72 h-full bg-bg-card border-r border-border flex flex-col py-6 overflow-y-auto overflow-x-hidden shrink-0 z-50 transition-all duration-300">
+  
+  <!-- Mobile Close Button -->
+  <button id="mobile-menu-close" class="md:hidden absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-bg-dark border border-border text-text-muted hover:text-primary transition-colors z-50">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+
   <!-- Sidebar Toggle Button -->
-  <button id="sidebar-toggle" class="absolute -right-3 top-12 w-6 h-6 bg-bg-dark border border-border rounded-full flex items-center justify-center text-text-muted hover:text-primary z-50 shadow-lg cursor-pointer">
+  <button id="sidebar-toggle" class="hidden md:flex absolute -right-3 top-12 w-6 h-6 bg-bg-dark border border-border rounded-full items-center justify-center text-text-muted hover:text-primary z-50 shadow-lg cursor-pointer">
     <i class="fa-solid fa-chevron-left text-[10px]"></i>
   </button>
 
@@ -131,32 +158,62 @@ import { personalInfo } from '../config';
     });
   }
 
-  // Theme Toggle Logic
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeIcon = document.getElementById('theme-icon');
+  // Mobile Menu Logic
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileOverlay = document.getElementById('mobile-overlay');
 
-  if (themeToggle && themeIcon) {
-    // Sync initial icon state
-    if (document.documentElement.classList.contains('light')) {
-      themeIcon.classList.remove('fa-moon');
-      themeIcon.classList.add('fa-sun');
+  function toggleMobileMenu() {
+    if(sidebar) sidebar.classList.toggle('-translate-x-full');
+    if(mobileOverlay) {
+      mobileOverlay.classList.toggle('opacity-0');
+      mobileOverlay.classList.toggle('pointer-events-none');
     }
+  }
 
-    themeToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('light');
-      const isLight = document.documentElement.classList.contains('light');
-      
-      localStorage.setItem('theme', isLight ? 'light' : 'dark');
-      
-      if (isLight) {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-      } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
+  if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+  if (mobileMenuClose) mobileMenuClose.addEventListener('click', toggleMobileMenu);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
+
+  // Close mobile menu on nav link click
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
+        toggleMobileMenu();
       }
     });
-  }
+  });
+
+  // Theme Toggle Logic (Desktop and Mobile)
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+  const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+
+  const syncThemeIcon = (icon) => {
+    if (!icon) return;
+    if (document.documentElement.classList.contains('light')) {
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    } else {
+      icon.classList.remove('fa-sun');
+      icon.classList.add('fa-moon');
+    }
+  };
+
+  syncThemeIcon(themeIcon);
+  syncThemeIcon(mobileThemeIcon);
+
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle('light');
+    const isLight = document.documentElement.classList.contains('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    syncThemeIcon(themeIcon);
+    syncThemeIcon(mobileThemeIcon);
+  };
+
+  if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+  if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
 
   // ScrollSpy for Sidebar Navigation
   const navLinks = document.querySelectorAll('.nav-link');
