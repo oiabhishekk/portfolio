@@ -6,6 +6,7 @@ import About from '../components/sections/About.astro';
 import Education from '../components/sections/Education.astro';
 import TechStack from '../components/sections/TechStack.astro';
 import Projects from '../components/sections/Projects.astro';
+import Blogs from '../components/sections/Blogs.astro';
 import Achievements from '../components/sections/Achievements.astro';
 import Contact from '../components/sections/Contact.astro';
 import FadeIn from '../components/FadeIn';
@@ -43,6 +44,9 @@ import SplashCursor from '../components/SplashCursor.jsx';
       </FadeIn>
       <FadeIn client:visible delay={0.1}>
         <Projects />
+      </FadeIn>
+      <FadeIn client:visible delay={0.1}>
+        <Blogs />
       </FadeIn>
       <FadeIn client:visible delay={0.1}>
         <Achievements />

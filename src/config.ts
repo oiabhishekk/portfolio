@@ -147,6 +147,7 @@ export const achievements = [
   {
     title: "Open-Source",
     description: "Active open-source contributor with personal projects demonstrating code readability, lint rules, and scalable architecture.",
-    icon: "fa-brands fa-osi"
   }
 ];
+
+

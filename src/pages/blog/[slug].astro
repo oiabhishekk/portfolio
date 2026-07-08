@@ -1,0 +1,107 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { blogs, type BlogPost, type ContentBlock } from '../../blog.config';
+
+export async function getStaticPaths() {
+  return blogs.map((blog) => ({
+    params: { slug: blog.slug },
+    props: { blog },
+  }));
+}
+
+interface Props {
+  blog: BlogPost;
+}
+
+const { blog } = Astro.props;
+---
+
+<Layout title={`${blog.title} - Blog`}>
+  <!-- Reading Progress Bar -->
+  <div class="fixed top-0 left-0 w-full h-1 z-50 bg-bg-card/30 backdrop-blur-sm">
+    <div id="progress-bar" class="h-full bg-primary w-0 transition-all duration-100 ease-out"></div>
+  </div>
+
+  <main id="scroll-container" class="w-full h-screen overflow-y-auto bg-bg-dark text-text-main pb-20 scroll-smooth">
+    <div class="max-w-4xl mx-auto px-8 pt-12">
+      <!-- Back Button -->
+      <a href={`${import.meta.env.BASE_URL}#blogs`} class="inline-flex items-center gap-2 text-text-muted hover:text-primary transition-colors mb-12">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Home
+      </a>
+
+      <!-- Article Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-4 text-sm font-mono text-text-muted mb-6">
+          <span>{blog.date}</span>
+          <span class="w-1 h-1 rounded-full bg-border"></span>
+          <span>{blog.readTime}</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">{blog.title}</h1>
+        
+        <div class="flex flex-wrap gap-2">
+          {blog.tags.map((tag: string) => (
+            <span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 text-xs font-mono rounded-md">{tag}</span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Article Content -->
+      <article class="max-w-none">
+        {blog.contentBlocks.map((block: ContentBlock) => {
+          if (block.type === 'paragraph') {
+            return <p class="text-xl text-text-muted mb-8 leading-relaxed">{block.text}</p>;
+          }
+          if (block.type === 'heading') {
+            return <h2 class="text-2xl font-bold text-text-main mt-12 mb-4 border-b border-border pb-2">{block.text}</h2>;
+          }
+          if (block.type === 'code') {
+            return (
+              <div class="bg-bg-card border border-border rounded-lg p-6 mb-8 font-mono text-sm shadow-inner text-primary overflow-x-auto whitespace-pre-wrap">
+                {block.text}
+              </div>
+            );
+          }
+          if (block.type === 'list') {
+            return (
+              <ul class="list-disc list-inside text-text-muted mb-8 space-y-2 text-lg">
+                {block.items?.map((item) => (
+                  <li set:html={item} />
+                ))}
+              </ul>
+            );
+          }
+          if (block.type === 'html') {
+            return <div class="w-full mb-8" set:html={block.html} />;
+          }
+          return null;
+        })}
+      </article>
+
+      <!-- Footer CTA -->
+      <div class="mt-16 pt-8 border-t border-border flex flex-col items-center">
+        <p class="text-text-muted mb-4">Enjoyed this article?</p>
+        <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20article%20on%20building%20websites%20with%20AI%20and%20CLI%20tools" target="_blank" class="px-6 py-2 bg-primary/10 text-primary hover:bg-primary/20 border border-primary/50 rounded-lg transition-colors font-medium flex items-center gap-2">
+          <i class="fa-brands fa-twitter"></i> Share on Twitter
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const scrollContainer = document.getElementById('scroll-container');
+    const progressBar = document.getElementById('progress-bar');
+    
+    if (scrollContainer && progressBar) {
+      scrollContainer.addEventListener('scroll', () => {
+        const scrollTop = scrollContainer.scrollTop;
+        const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+        
+        // Calculate percentage (avoid division by zero)
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        
+        progressBar.style.width = `${progress}%`;
+      });
+    }
+  </script>
+</Layout>
